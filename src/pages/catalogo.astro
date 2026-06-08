@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/Banner.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProductFilter from '../components/ProductFilter';
+import { products } from '../data/products';
+import { images } from '../data/images';
+---
+
+<Layout
+  title="Catálogo"
+  description="Catálogo completo de velas artesanales Velitas de la Luna. Filtrá por intención y consultá por WhatsApp o Instagram."
+  currentPath="/catalogo"
+>
+  <Banner
+    title="Catálogo"
+    image={images.pages.catalogo}
+    position="center 25%"
+  />
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Colección completa"
+        title="Encontrá tu vela"
+        subtitle="Filtrá por intención y consultá disponibilidad. Precios en pesos argentinos."
+      />
+      <ProductFilter client:load products={products} />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,138 @@
+---
+import Logo from './Logo.astro';
+import MobileNav from './MobileNav';
+import { navLinks, ctaLink, isNavActive, navHref } from '../data/navigation';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<header class="header">
+  <div class="header__inner container">
+    <Logo variant="header" />
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul class="header__links">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={navHref(link.path)}
+                class:list={[{ 'is-active': isNavActive(currentPath, link.path) }]}
+                aria-current={isNavActive(currentPath, link.path) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={navHref(ctaLink.path)}
+        class:list={['btn btn--primary btn--sm header__cta', { 'is-active': isNavActive(currentPath, ctaLink.path) }]}
+      >
+        {ctaLink.label}
+      </a>
+    </nav>
+
+    <MobileNav client:load currentPath={currentPath} />
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(20, 16, 31, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid transparent;
+    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  }
+
+  :global(.header--scrolled) {
+    background: rgba(20, 16, 31, 0.94);
+    border-bottom-color: var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header__inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: var(--header-height);
+    padding-block: 0.625rem;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  .header__links {
+    display: flex;
+    list-style: none;
+    gap: clamp(0.75rem, 1.8vw, 1.5rem);
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+
+  .header__links a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    color: var(--color-text-muted);
+    transition: color var(--transition);
+    position: relative;
+    padding-block: 0.25rem;
+  }
+
+  .header__links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transition: width var(--transition);
+  }
+
+  .header__links a:hover,
+  .header__links a.is-active {
+    color: var(--color-heading);
+  }
+
+  .header__links a.is-active::after,
+  .header__links a:hover::after {
+    width: 100%;
+  }
+
+  .header__cta {
+    flex-shrink: 0;
+    margin-left: 0.25rem;
+  }
+
+  @media (max-width: 1024px) {
+    .header__nav {
+      display: none;
+    }
+
+    .header__inner {
+      grid-template-columns: 1fr auto;
+    }
+  }
+</style>

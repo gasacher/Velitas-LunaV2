@@ -1,0 +1,134 @@
+---
+import type { Product } from '../data/products';
+import { formatPrice, categoryLabels } from '../data/products';
+import PurchaseActions from './PurchaseActions.astro';
+
+interface Props {
+  product: Product;
+  variant?: 'default' | 'compact';
+}
+
+const { product, variant = 'default' } = Astro.props;
+const label = categoryLabels[product.category];
+---
+
+<article class:list={['product-card', variant === 'compact' && 'product-card--compact']}>
+  <div class="product-card__media">
+    <span class="product-card__badge">{label}</span>
+    <img
+      src={product.image}
+      alt={product.name}
+      class="product-card__image"
+      style="object-position: center 20%"
+      loading="lazy"
+      width="320"
+      height="400"
+    />
+    <span class="product-card__shine" aria-hidden="true"></span>
+  </div>
+  <div class="product-card__body">
+    <h3 class="product-card__name">{product.name}</h3>
+    <p class="product-card__desc">{product.description}</p>
+    <p class="product-card__price">{formatPrice(product.price)}</p>
+    <PurchaseActions productName={product.name} layout="row" />
+  </div>
+</article>
+
+<style>
+  .product-card {
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow), var(--shadow-md);
+    border-color: rgba(200, 166, 245, 0.3);
+  }
+
+  .product-card__media {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+
+  .product-card__badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    background: rgba(20, 16, 31, 0.65);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+  }
+
+  .product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .product-card:hover .product-card__image {
+    transform: scale(1.05);
+  }
+
+  .product-card__shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .product-card__body {
+    padding: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-card__name {
+    font-size: 1.375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-card__desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-card__price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-accent-soft);
+    margin: 0;
+  }
+
+  .product-card--compact .product-card__media {
+    aspect-ratio: 1;
+  }
+
+  .product-card--compact .product-card__desc {
+    -webkit-line-clamp: 2;
+  }
+</style>

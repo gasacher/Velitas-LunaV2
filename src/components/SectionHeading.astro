@@ -1,0 +1,43 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'center' | 'left';
+  highlight?: string;
+}
+
+const { eyebrow, title, subtitle, align = 'center', highlight } = Astro.props;
+
+const parts = highlight ? title.split(highlight) : null;
+---
+
+<div class:list={['section-heading', `section-heading--${align}`]}>
+  {eyebrow && <span class="section-eyebrow">{eyebrow}</span>}
+  <h2 class="section-title">
+    {
+      parts ? (
+        <>
+          {parts[0]}
+          <em>{highlight}</em>
+          {parts[1]}
+        </>
+      ) : (
+        title
+      )
+    }
+  </h2>
+  {subtitle && <p class="section-subtitle">{subtitle}</p>}
+</div>
+
+<style>
+  .section-heading--left .section-title,
+  .section-heading--left .section-subtitle {
+    text-align: left;
+    margin-inline: 0;
+  }
+
+  .section-heading--left .section-eyebrow {
+    text-align: left;
+  }
+</style>

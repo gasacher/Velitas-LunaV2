@@ -1,0 +1,53 @@
+.purchase-block {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.purchase-block__label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.625rem;
+  text-align: center;
+}
+
+.purchase-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.purchase-actions--row .btn {
+  flex: 1;
+  justify-content: center;
+  padding-inline: 0.625rem;
+}
+
+.purchase-actions--stack {
+  flex-direction: column;
+}
+
+.purchase-actions--stack .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.purchase-actions .btn svg {
+  flex-shrink: 0;
+}
+
+.btn--instagram {
+  background: transparent;
+  color: var(--color-lavender);
+  border: 1.5px solid var(--color-glass-border);
+}
+
+.btn--instagram:hover {
+  background: var(--color-lavender-soft);
+  border-color: var(--color-lavender);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}

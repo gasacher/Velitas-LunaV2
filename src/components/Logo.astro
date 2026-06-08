@@ -1,0 +1,62 @@
+---
+import { images } from '../data/images';
+import { route } from '../utils/path';
+
+interface Props {
+  variant?: 'header' | 'footer' | 'hero';
+}
+
+const { variant = 'header' } = Astro.props;
+---
+
+<a href={route('/')} class:list={['brand', `brand--${variant}`]} aria-label="Velitas de la Luna — Inicio">
+  <img
+    src={images.logoWordmarkSm}
+    alt="Velitas de la Luna"
+    class="brand__wordmark"
+    width="200"
+    height="200"
+    decoding="async"
+  />
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: opacity var(--transition);
+  }
+
+  .brand:hover {
+    opacity: 0.9;
+  }
+
+  .brand--hero {
+    justify-content: center;
+  }
+
+  .brand--hero .brand__wordmark {
+    height: 60px !important;
+    max-height: 60px;
+  }
+
+  .brand--footer {
+    align-items: flex-start;
+  }
+
+  @media (max-width: 1024px) {
+    .brand--hero .brand__wordmark {
+      height: 54px !important;
+      max-height: 54px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brand--hero .brand__wordmark {
+      height: 48px !important;
+      max-height: 48px;
+    }
+  }
+</style>

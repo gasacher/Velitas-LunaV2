@@ -1,0 +1,88 @@
+---
+const pillars = [
+  {
+    icon: '🕯️',
+    title: 'Hechas a mano',
+    text: 'Cada vela es única. Elaboración artesanal con materiales seleccionados y cuidado en cada detalle.',
+  },
+  {
+    icon: '✨',
+    title: 'Con intención',
+    text: 'Diseñadas como herramientas energéticas para rituales de amor, protección, equilibrio y más.',
+  },
+  {
+    icon: '🌙',
+    title: 'Inspiradas en la luna',
+    text: 'Los ciclos lunares guían nuestra creatividad. Magia cotidiana, pausa consciente, empoderamiento.',
+  },
+];
+---
+
+<section id="experiencia" class="section section--tight">
+  <div class="container">
+    <div class="pillars glass-panel" data-reveal>
+      {
+        pillars.map((pillar, i) => (
+          <div class="pillar" data-reveal data-reveal-delay={(i + 1) as 1 | 2 | 3}>
+            <span class="pillar__icon" aria-hidden="true">{pillar.icon}</span>
+            <h3 class="pillar__title">{pillar.title}</h3>
+            <p class="pillar__text">{pillar.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .pillar {
+    padding: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .pillar:last-child {
+    border-right: none;
+  }
+
+  .pillar__icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .pillar__title {
+    font-size: 1.375rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .pillar__text {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+
+    .pillar {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .pillar:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

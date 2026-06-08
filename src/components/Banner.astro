@@ -1,0 +1,128 @@
+---
+interface Props {
+  title: string;
+  image?: string;
+  imageLeft?: string;
+  imageRight?: string;
+  altLeft?: string;
+  altRight?: string;
+  position?: string;
+  positionLeft?: string;
+  positionRight?: string;
+}
+
+const {
+  title,
+  image,
+  imageLeft,
+  imageRight,
+  altLeft = '',
+  altRight = '',
+  position = 'center 30%',
+  positionLeft = 'center 30%',
+  positionRight = 'center 30%',
+} = Astro.props;
+
+const useSplit = !image && imageLeft && imageRight;
+---
+
+<section class="page-hero" aria-label={title}>
+  {
+    image ? (
+      <div class="page-hero__bg">
+        <img
+          src={image}
+          alt=""
+          class="page-hero__img"
+          style={`object-position: ${position}`}
+          loading="eager"
+        />
+        <div class="page-hero__overlay"></div>
+      </div>
+    ) : useSplit ? (
+      <div class="page-hero__split">
+        <img src={imageLeft} alt={altLeft} style={`object-position: ${positionLeft}`} loading="eager" />
+        <img src={imageRight} alt={altRight} style={`object-position: ${positionRight}`} loading="eager" />
+        <div class="page-hero__overlay"></div>
+      </div>
+    ) : null
+  }
+  <div class="page-hero__content container">
+    <p class="page-hero__eyebrow">Velitas de la Luna</p>
+    <h1 class="page-hero__title" data-reveal>{title}</h1>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    min-height: clamp(360px, 52vh, 520px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding-top: var(--header-height);
+  }
+
+  .page-hero__bg,
+  .page-hero__split {
+    position: absolute;
+    inset: 0;
+    top: 0;
+  }
+
+  .page-hero__img,
+  .page-hero__split img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .page-hero__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .page-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--color-bg) 0%,
+      rgba(20, 16, 31, 0.82) 38%,
+      rgba(20, 16, 31, 0.45) 100%
+    );
+  }
+
+  .page-hero__content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 2.5rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .page-hero__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-lavender);
+    margin-bottom: 0.625rem;
+  }
+
+  .page-hero__title {
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    color: var(--color-white);
+    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .page-hero__split {
+      grid-template-columns: 1fr;
+    }
+
+    .page-hero__split img:last-child {
+      display: none;
+    }
+  }
+</style>

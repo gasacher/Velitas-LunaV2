@@ -1,0 +1,132 @@
+---
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+import { siteConfig } from '../data/products';
+import { navHref } from '../data/navigation';
+---
+
+<footer class="footer">
+  <div class="footer__glow" aria-hidden="true"></div>
+  <div class="footer__inner container">
+    <div class="footer__brand" data-reveal>
+      <Logo variant="footer" />
+      <p class="footer__tagline">
+        Velas artesanales con intención.<br />
+        Hechas en Buenos Aires con amor y magia.
+      </p>
+      <SocialLinks />
+    </div>
+
+    <div class="footer__columns">
+      <div class="footer__col" data-reveal data-reveal-delay="1">
+        <h3 class="footer__heading">Explorar</h3>
+        <ul class="footer__links">
+          <li><a href={navHref('/catalogo')}>Catálogo</a></li>
+          <li><a href={navHref('/comprar')}>Comprar</a></li>
+          <li><a href={navHref('/nosotros')}>Nuestra historia</a></li>
+        </ul>
+      </div>
+      <div class="footer__col" data-reveal data-reveal-delay="2">
+        <h3 class="footer__heading">Ayuda</h3>
+        <ul class="footer__links">
+          <li><a href={navHref('/faq')}>Preguntas frecuentes</a></li>
+          <li><a href={navHref('/contacto')}>Contacto</a></li>
+          <li><a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom container">
+    <p>&copy; {new Date().getFullYear()} Velitas de la Luna · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    padding: 4rem 0 0;
+    margin-top: auto;
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .footer__glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-lavender), transparent);
+    opacity: 0.4;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer__tagline {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .footer__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer__heading {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer__links a {
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    transition: color var(--transition);
+  }
+
+  .footer__links a:hover {
+    color: var(--color-heading);
+  }
+
+  .footer__bottom {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .footer__bottom p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

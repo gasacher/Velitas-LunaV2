@@ -1,0 +1,179 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/Banner.astro';
+import CTABand from '../components/CTABand.astro';
+import { images } from '../data/images';
+---
+
+<Layout
+  title="Nosotros"
+  description="La historia de Velitas de la Luna: velas artesanales con intención, inspiradas en la luna y hechas en Buenos Aires."
+  currentPath="/nosotros"
+>
+  <Banner
+    title="Nosotros"
+    imageLeft={images.pages.nosotros}
+    imageRight={images.pages.nosotrosAlt}
+    altLeft="Velas artesanales en caja"
+    altRight="Velas Velitas de la Luna"
+    positionLeft="center 40%"
+    positionRight="center 35%"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="about glass-panel" data-reveal>
+        <div class="about__content">
+          <div class="about__intro" data-reveal>
+            <span class="section-eyebrow">Nuestra historia</span>
+            <img
+              class="about__logo"
+              src={images.logoWordmark}
+              alt="Velitas de la Luna"
+              width="320"
+              height="320"
+              loading="lazy"
+              decoding="async"
+            />
+            <p class="about__lead">
+              Nació del deseo de crear momentos mágicos y rituales significativos.
+            </p>
+          </div>
+          <p>
+            Creemos en el poder de las intenciones y en el arte de acompañarlas con velas únicas,
+            creadas con amor y propósito. Cada pieza es una invitación a pausar, respirar y
+            reconectar con vos.
+          </p>
+
+          <h3>Quiénes somos</h3>
+          <p>
+            Somos un equipo comprometido con crear velas que acompañen tu energía y tu bienestar.
+            Nos inspiran la luna, los ciclos naturales y el poder transformador de lo simple.
+          </p>
+
+          <ul class="values">
+            <li><span>✨</span> Magia en lo cotidiano</li>
+            <li><span>🕯️</span> Autenticidad artesanal</li>
+            <li><span>🌙</span> Respeto por los ciclos</li>
+            <li><span>💫</span> Cuidado en cada detalle</li>
+          </ul>
+        </div>
+
+        <figure class="about__image" data-reveal="right">
+          <img
+            src={images.pages.nosotrosAlt}
+            alt="Equipo Velitas de la Luna"
+            loading="lazy"
+            width="440"
+            height="560"
+            style="object-position: center 25%"
+          />
+          <figcaption>Hecho con amor en Buenos Aires</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Conocé nuestras velas"
+    subtitle="Cada intención tiene su aroma, su color y su ritual."
+    variant="actions"
+    primaryLabel="Explorar catálogo"
+    primaryHref="/catalogo"
+    secondaryLabel="Comprar"
+    secondaryHref="/comprar"
+  />
+</Layout>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .about__content p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .about__intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .about__intro .section-eyebrow {
+    display: block;
+    text-align: left;
+    margin-bottom: 1.25rem;
+  }
+
+  .about__logo {
+    width: min(240px, 72vw);
+    height: auto;
+    margin-bottom: 1.25rem;
+    filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.35));
+  }
+
+  .about__lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    color: var(--color-heading);
+    line-height: 1.5;
+    margin: 0 0 1.25rem;
+  }
+
+  .about__content h3 {
+    font-size: 1.375rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .values {
+    list-style: none;
+    display: grid;
+    gap: 0.625rem;
+    margin-top: 1.5rem;
+  }
+
+  .values li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .about__image {
+    margin: 0;
+  }
+
+  .about__image img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .about__image figcaption {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+
+    .about__image {
+      order: -1;
+    }
+  }
+</style>

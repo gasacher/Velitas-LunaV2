@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { siteConfig } from '../data/products';
+import { images } from '../data/images';
+import { asset } from '../utils/path';
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath: string;
+  ogImage?: string;
+}
+
+const { title, description = siteConfig.description, currentPath, ogImage = asset('/img/img1_header.jpeg') } = Astro.props;
+const fullTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://velitasluna.com');
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#14101f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href={images.favicon} />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <Header currentPath={currentPath} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+
+    <script is:inline>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+      );
+
+      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+      const header = document.querySelector('.header');
+      if (header) {
+        window.addEventListener(
+          'scroll',
+          () => header.classList.toggle('header--scrolled', window.scrollY > 40),
+          { passive: true }
+        );
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  main {
+    min-height: calc(100vh - var(--header-height));
+    position: relative;
+    z-index: 1;
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/Banner.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProductCard from '../components/ProductCard.astro';
+import CTABand from '../components/CTABand.astro';
+import { products } from '../data/products';
+import { images } from '../data/images';
+---
+
+<Layout
+  title="Comprar"
+  description="Comprá velas artesanales Velitas de la Luna. Elegí tu vela y coordinamos el pedido por WhatsApp o Instagram."
+  currentPath="/comprar"
+>
+  <Banner
+    title="Comprar"
+    imageLeft={images.pages.comprar}
+    imageRight={images.pages.comprarAlt}
+    altLeft="Velas rosas"
+    altRight="Feria artesanal"
+    positionLeft="center 35%"
+    positionRight="center 30%"
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="steps glass-panel" data-reveal>
+        <SectionHeading
+          eyebrow="Proceso"
+          title="¿Cómo comprar?"
+          subtitle="Simple, personal y con la calidez de siempre."
+        />
+        <ol class="steps-list">
+          <li>
+            <span class="steps-list__num">01</span>
+            <div>
+              <strong>Elegí tus velas</strong>
+              <p>Explorá el catálogo y anotate tus favoritas.</p>
+            </div>
+          </li>
+          <li>
+            <span class="steps-list__num">02</span>
+            <div>
+              <strong>Escribinos por WhatsApp o Instagram</strong>
+              <p>Contanos qué querés y te confirmamos stock.</p>
+            </div>
+          </li>
+          <li>
+            <span class="steps-list__num">03</span>
+            <div>
+              <strong>Coordinamos entrega</strong>
+              <p>Pago, envío o retiro en Congreso.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Productos"
+        title="Nuestras velas"
+        subtitle="Cada pieza es única. Consultá por Instagram para hacer tu pedido."
+      />
+      <div class="grid-products">
+        {products.map((product, i) => (
+          <div class="grid-products__item" data-reveal data-reveal-delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="¿Tenés dudas sobre tu pedido?"
+    subtitle="Estamos para ayudarte a elegir la vela perfecta para tu ritual."
+    variant="actions"
+    primaryLabel="Contactanos"
+    primaryHref="/contacto"
+    secondaryLabel="Ver FAQs"
+    secondaryHref="/faq"
+  />
+</Layout>
+
+<style>
+  .steps {
+    padding: clamp(2rem, 5vw, 3rem);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .steps-list {
+    list-style: none;
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .steps-list li {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .steps-list__num {
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .steps-list strong {
+    display: block;
+    color: var(--color-heading);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .steps-list p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+</style>

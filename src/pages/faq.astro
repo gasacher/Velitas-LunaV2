@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/Banner.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FaqAccordion from '../components/FaqAccordion';
+import CTABand from '../components/CTABand.astro';
+import { images } from '../data/images';
+---
+
+<Layout
+  title="Preguntas frecuentes"
+  description="Respuestas sobre compras, envíos, pagos y velas artesanales de Velitas de la Luna."
+  currentPath="/faq"
+>
+  <Banner
+    title="Preguntas frecuentes"
+    imageLeft={images.pages.faq}
+    imageRight={images.pages.faqAlt}
+    altLeft="Vela ritual"
+    altRight="Cartas y velas"
+    positionLeft="center 30%"
+    positionRight="center center"
+  />
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Ayuda"
+        title="Todo lo que necesitás saber"
+        subtitle="Si tu duda no está acá, escribinos — estamos para ayudarte."
+      />
+      <div data-reveal>
+        <FaqAccordion client:load />
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</Layout>

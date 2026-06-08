@@ -1,0 +1,132 @@
+---
+import PurchaseActions from './PurchaseActions.astro';
+import { route } from '../utils/path';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  variant?: 'contact' | 'actions';
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  title = '¿Lista para encender tu ritual?',
+  subtitle = 'Completá el formulario y te respondemos con cariño. También podés escribirnos por WhatsApp o Instagram.',
+  variant = 'contact',
+  primaryLabel = 'Ver catálogo',
+  primaryHref = '/catalogo',
+  secondaryLabel = 'Contacto',
+  secondaryHref = '/contacto',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="cta-band__glow" aria-hidden="true"></div>
+  <div class="container cta-band__inner" data-reveal>
+    <h2 class="cta-band__title">{title}</h2>
+    <p class="cta-band__subtitle">{subtitle}</p>
+
+    {
+      variant === 'contact' ? (
+        <>
+          <div class="cta-band__primary">
+            <a href={route('/contacto')} class="btn btn--primary">Contactanos</a>
+          </div>
+          <div class="cta-band__channels">
+            <p class="cta-band__channels-label">También podés escribirnos por</p>
+            <PurchaseActions layout="row" size="md" showLabel={false} />
+          </div>
+        </>
+      ) : (
+        <div class="cta-band__actions">
+          <a href={route(primaryHref)} class="btn btn--primary">{primaryLabel}</a>
+          <a href={route(secondaryHref)} class="btn btn--secondary">{secondaryLabel}</a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    position: relative;
+    padding: clamp(4rem, 10vw, 6rem) 0;
+    overflow: hidden;
+  }
+
+  .cta-band__glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 50%, rgba(108, 59, 112, 0.25), transparent),
+      linear-gradient(135deg, rgba(212, 175, 85, 0.06), rgba(200, 166, 245, 0.06));
+    border-block: 1px solid var(--color-border);
+  }
+
+  .cta-band__inner {
+    position: relative;
+    text-align: center;
+    max-width: 40rem;
+  }
+
+  .cta-band__title {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: 1rem;
+  }
+
+  .cta-band__subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cta-band__primary {
+    margin-bottom: 2rem;
+  }
+
+  .cta-band__primary .btn {
+    min-width: min(100%, 14rem);
+    justify-content: center;
+  }
+
+  .cta-band__channels {
+    max-width: 26rem;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-band__channels-label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .cta-band__channels :global(.purchase-block) {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .cta-band__channels :global(.purchase-actions) {
+    gap: 0.875rem;
+  }
+
+  .cta-band__channels :global(.purchase-actions .btn) {
+    min-height: 48px;
+    padding-inline: 1.25rem;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+</style>
