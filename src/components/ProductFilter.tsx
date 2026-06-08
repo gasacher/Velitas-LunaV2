@@ -55,10 +55,6 @@ export default function ProductFilter({ products }: Props) {
 
   return (
     <div className="catalog">
-      <div className="catalog__hint glass-panel">
-        <p>Elegí tu vela y consultá disponibilidad por <strong>WhatsApp</strong> o <strong>Instagram</strong>.</p>
-      </div>
-
       <div className="catalog__filters" role="tablist" aria-label="Filtrar por intención">
         {categoryFilters.map((filter) => (
           <button

@@ -1,15 +1,3 @@
-.catalog__hint {
-  text-align: center;
-  padding: 1rem 1.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
-}
-
-.catalog__hint strong {
-  color: var(--color-heading);
-}
-
 .catalog__filters {
   display: flex;
   flex-wrap: wrap;
